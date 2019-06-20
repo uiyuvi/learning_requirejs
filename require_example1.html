@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- The RequireJS configuration is defined first -->
+<script src="js/lib/requirejs.js"></script>
+<script>
+    require.config({
+        paths: {
+            myApp: 'example1/app/myApp',
+            jquery: 'js/lib/jquery'
+        }
+    });
+    // loads the application constructor
+    require(['myApp'], function(App) {
+        // the app is constructed. The ID of the div is passed to the constructor.
+        new App('app');
+    });
+</script>
+</head>
+<body>
+    <div id="app"></div>
+    <Pre>
+        <h2> What is Require.js?</h2>
+            Require.js is an implementation of Asynchronous Module Definition (AMD). The AMD specifies a mechanism for defining modules such that the module and its dependencies can be asynchronously loaded. This is particularly well suited for the browser environment where synchronous loading of modules incurs performance, usability, debugging, and cross-domain access problems.
+            Require.js allows to load JavaScript files dynamically.
+            Instead of putting a dozen <&zwj;script> tags at the top of your page, Require.js will load them for you, when you need it.
+            Require.js can be configured in detail to know where to find the correct javascript files
+            JavaScript files are called modules in the scope of Require.js
+            A module used by Require.js contains a function that returns something.
+            This something is cached by Require.js. The next time somebody tells Require.js to get the same module, the cached value is returned.
+        <h2>What is AMD?</h2>
+            <strong>AMD Definition</strong>
+                AMD is an API (a specification) to asynchronously load JavaScript dependencies.
+                It allows loading multiple .JS files at runtime when needed.
+                It promotes encapsulation in many .JS files.
+                It serves the same purpose as Java’s import, package and class keywords.
+                It still allows minification and concatenation on production environments.
+                Implementations are: RequireJS, amdjs, CommonJS
+        <h2>How does it work?</h2>
+
+        RequireJS, when it notices a dependency it has not yet loaded, will resolve it to a URL based on the config. For instance, in the example above when loading app/myApp.js, 'jquery' will be resolved to 'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js'. 
+        RequireJS adds a script tag to the head (with the async attribute) and then waits for the JS file to be loaded        
+        <&zwj;script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"><&zwj;/script>
+        As part of the script being loaded, JQuery will call 'define'.
+        RequireJS will run the asynchronous result handler of JQuery's define and puts the return value ($) in its cache.
+        RequireJS will feed the same value ($) to the asynchronous result handler of example1/app/myApp.js
+    </Pre>
+</body>
+</html>
